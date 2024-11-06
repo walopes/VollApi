@@ -1,11 +1,11 @@
-package med.voll.api.medico;
+package med.voll.api.domain.medico;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import med.voll.api.endereco.Endereco;
+import med.voll.api.domain.endereco.Endereco;
 
 // Entity
 @Getter
@@ -57,8 +57,6 @@ public class Medico {
         if(dados.endereco() != null) {
             this.endereco.updateInfos(dados.endereco());
         }
-
-
     }
 
     public void excluir() {
