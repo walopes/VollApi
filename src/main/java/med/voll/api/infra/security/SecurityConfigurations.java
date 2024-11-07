@@ -1,5 +1,6 @@
 package med.voll.api.infra.security;
 
+import org.hibernate.Session;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,9 +14,8 @@ public class SecurityConfigurations {
 
     @Bean
     public SecurityFilterChain configure(final HttpSecurity http) throws Exception {
-        return http.csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().build();
+        return http.csrf(c -> c.disable())
+                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .build();
     }
 }
