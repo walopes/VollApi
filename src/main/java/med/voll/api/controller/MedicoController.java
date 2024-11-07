@@ -2,7 +2,7 @@ package med.voll.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.medico.*;
+import med.voll.api.domain.medico.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -30,15 +30,21 @@ public class MedicoController {
         return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
     }
 
-    @GetMapping("list")
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosDetalhamentoMedico> get(@PathVariable Long id){
+        var medico = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
+    }
+
+    @GetMapping("/list")
     public ResponseEntity<Page<DadosListagemMedico>> listar(@PageableDefault(size=5, sort= {"nome"}) Pageable p){
         var response = repository.findAllByAtivoTrue(p).map(DadosListagemMedico::new);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("update")
+    @PutMapping("/update")
     @Transactional
-    public ResponseEntity update(@RequestBody @Valid DadosUpdateMedico dados){
+    public ResponseEntity<DadosDetalhamentoMedico> update(@RequestBody @Valid DadosUpdateMedico dados){
         var medico = repository.getReferenceById(dados.id());
         medico.updateInfos(dados);
         return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
