@@ -80,11 +80,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
-		<version>4.2.1</version>
-	</dependency>
+			<version>4.4.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
