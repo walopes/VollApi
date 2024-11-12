@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+// TODO Adicionar os outros métodos
+// TODO Adicionar tratativa de erros
+// TODO Melhorar a injeção de dependência
 @RestController
 @RequestMapping("paciente")
 public class PacienteController {
