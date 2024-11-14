@@ -1,13 +1,15 @@
 package med.voll.api.controller;
 
 import med.voll.api.domain.paciente.DadosPaciente;
+import med.voll.api.domain.paciente.ListPaciente;
 import med.voll.api.domain.paciente.Paciente;
 import med.voll.api.domain.paciente.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.*;
 
 // TODO Adicionar os outros métodos
 // TODO Adicionar tratativa de erros
@@ -27,7 +29,7 @@ public class PacienteController {
     }
 
     @GetMapping("list")
-    public Page<ListPaciente> listar(@PageableDefault(sort={"name"}, direction = "desc", size = 1) Pageable pageable) {
+    public Page<ListPaciente> listar(@PageableDefault(sort={"name"}, size = 1, direction = Sort.Direction.DESC) Pageable pageable) {
         return pacienteRepository.findAll(pageable).map(ListPaciente::new);
     }
 }
