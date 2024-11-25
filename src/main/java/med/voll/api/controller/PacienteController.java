@@ -1,14 +1,17 @@
 package med.voll.api.controller;
 
+import med.voll.api.domain.medico.DadosDetalhamentoMedico;
 import med.voll.api.domain.paciente.DadosPaciente;
 import med.voll.api.domain.paciente.ListPaciente;
 import med.voll.api.domain.paciente.Paciente;
 import med.voll.api.domain.paciente.PacienteRepository;
+import med.voll.api.paciente.DadosDetalhamentoPaciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 // TODO Adicionar os outros métodos
@@ -31,5 +34,11 @@ public class PacienteController {
     @GetMapping("list")
     public Page<ListPaciente> listar(@PageableDefault(sort={"name"}, size = 1, direction = Sort.Direction.DESC) Pageable pageable) {
         return pacienteRepository.findAll(pageable).map(ListPaciente::new);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosDetalhamentoPaciente> get(@PathVariable Long id){
+        var paciente = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
     }
 }
