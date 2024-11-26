@@ -27,7 +27,6 @@ public class PacienteController {
 
     @PostMapping
     public void cadastro(@RequestBody DadosPaciente paciente) {
-        // System.out.println(paciente);
         pacienteRepository.save(new Paciente(paciente));
     }
 
@@ -41,4 +40,11 @@ public class PacienteController {
         var paciente = repository.getReferenceById(id);
         return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
     }
+	
+	@PutMapping("/update")
+	@Transactional
+	public ResponseEntity<DadosDetalhamentoPaciente> put(@RequestBody @Valid DadosPaciente paciente){
+		//TODO Create a record for that method
+
+	}
 }
