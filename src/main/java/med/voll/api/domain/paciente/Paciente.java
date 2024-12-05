@@ -19,6 +19,7 @@ public class Paciente {
 
     private String nome;
     private String email;
+	private String ativo;
 
     @Embedded
     private Endereco endereco;
@@ -27,5 +28,9 @@ public class Paciente {
         this.nome = data.nome();
         this.email = data.email();
         this.endereco = new Endereco(data.endereco());
+    }	
+	
+    public void excluir() {
+        this.ativo = false;
     }
 }
