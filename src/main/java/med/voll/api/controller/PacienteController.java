@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("paciente")
-public class PacienteController 
+public class PacienteController{
 
 	public PacienteController(PacienteRepository repository){
 		pacienteRepository = repository;
@@ -47,5 +47,14 @@ public class PacienteController
 	public ResponseEntity<DadosDetalhamentoPaciente> put(@RequestBody @Valid DadosPaciente paciente){
 		//TODO Create a record for that method
 
+	}
+	
+	@DeleteMapping()
+	@Transactional
+	public ResponseEntity<> delete(@PathVariable Long id){
+		var entity = repository.getReferenceById(id);
+		entity.excluir();
+		
+		return ResponseEntity.noContent().build();
 	}
 }
