@@ -33,7 +33,7 @@ public class PacienteController{
 
     @GetMapping("list")
     public Page<ListPaciente> listar(@PageableDefault(sort={"name"}, size = 1, direction = Sort.Direction.DESC) Pageable pageable) {
-        return pacienteRepository.findAll(pageable).map(ListPaciente::new);
+        return pacienteRepository.findAllByAtivoTrue(pageable).map(ListPaciente::new);
     }
 
     @GetMapping("/{id}")
