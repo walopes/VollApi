@@ -14,10 +14,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-// TODO Adicionar os outros métodos
-// TODO Adicionar tratativa de erros
-// TODO Melhorar a injeção de dependência
-
 @RestController
 @RequestMapping("paciente")
 public class PacienteController{
