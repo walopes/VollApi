@@ -28,7 +28,19 @@ public class Paciente {
         this.nome = data.nome();
         this.email = data.email();
         this.endereco = new Endereco(data.endereco());
-    }	
+    }
+	
+    public void updateInfos(@Valid DadosUpdatePaciente paciente) {
+        if(paciente.nome() != null) {
+            this.nome = paciente.nome();
+        }
+        if(paciente.email() != null) {
+            this.email = paciente.email();
+        }
+        if(paciente.endereco() != null) {
+            this.endereco.updateInfos(paciente.endereco());
+        }
+    }
 	
     public void excluir() {
         this.ativo = false;
