@@ -41,8 +41,9 @@ public class PacienteController{
 	@PutMapping("/update")
 	@Transactional
 	public ResponseEntity<DadosDetalhamentoPaciente> put(@RequestBody @Valid DadosPaciente paciente){
-		//TODO Create a record for that method
-
+        var paciente = repository.getReferenceById(id);
+		paciente.updateInfos(paciente);
+        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
 	}
 	
 	@DeleteMapping()
