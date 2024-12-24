@@ -1,1 +1,5 @@
-Based on course provided at Alura of Sprint Boot
+Based on course "Formação Java e Spring Boot", by Alura
+
+Some steps to be added later:
+- Docker Image
+- 
