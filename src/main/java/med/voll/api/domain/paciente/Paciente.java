@@ -1,6 +1,7 @@
 package med.voll.api.domain.paciente;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
 import med.voll.api.domain.endereco.Endereco;
 
@@ -19,7 +20,7 @@ public class Paciente {
 
     private String nome;
     private String email;
-	private String ativo;
+	private Boolean ativo;
 
     @Embedded
     private Endereco endereco;
