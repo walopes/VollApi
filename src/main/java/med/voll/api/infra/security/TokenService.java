@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 
 import med.voll.api.domain.user.Usuario;
 
@@ -33,6 +34,20 @@ public class TokenService {
             // Invalid Signing configuration / Couldn't convert
             // Claims.src/main/java/med/voll/api/controller/AutenticacaoController.java
             throw new RuntimeException("error when generating JWT", exception);
+        }
+    }
+
+    public String getSubject(String tokenJWT) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
+                    .withIssuer("Api Voll.med")
+                    .build()
+                    .verify(tokenJWT)
+                    .getSubject();
+
+        } catch (JWTVerificationException exception) {
+            throw new RuntimeException("Token JWTT inválido ou expirado");
         }
     }
 
