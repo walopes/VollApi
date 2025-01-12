@@ -29,12 +29,10 @@ public class SecurityFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         var tokenJWT = recuperarToken(request);
         if (tokenJWT != null) {
-            var subject = tokenService.getSubject(tokenJWT);
             var user = repository.findByLogin(tokenJWT);
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            System.out.println(subject);
         }
         filterChain.doFilter(request, response);
     }
