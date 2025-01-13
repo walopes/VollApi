@@ -18,6 +18,7 @@ import med.voll.api.domain.user.UsuarioRepository;
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
+    // TODO remove autowired on constructor
     @Autowired
     private TokenService tokenService;
 
@@ -29,7 +30,8 @@ public class SecurityFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         var tokenJWT = recuperarToken(request);
         if (tokenJWT != null) {
-            var user = repository.findByLogin(tokenJWT);
+            var subject = tokenService.getSubject(tokenJWT);
+            var user = repository.findByLogin(subject);
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
