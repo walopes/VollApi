@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,45 +26,49 @@ import med.voll.api.domain.paciente.PacienteRepository;
 
 @RestController
 @RequestMapping("paciente")
-public class PacienteController{
+public class PacienteController {
 
     private final PacienteRepository pacienteRepository;
 
-	public PacienteController(PacienteRepository repository){
-		pacienteRepository = repository;
-	}
+    public PacienteController(PacienteRepository repository) {
+        pacienteRepository = repository;
+    }
 
     @PostMapping
+    @Secured("ROLE_ADMIN")
     public void cadastro(@RequestBody DadosPaciente paciente) {
         pacienteRepository.save(new Paciente(paciente));
     }
 
     @GetMapping("list")
-    public Page<ListPaciente> listar(@PageableDefault(sort={"name"}, size = 1, direction = Sort.Direction.DESC) Pageable pageable) {
+    public Page<ListPaciente> listar(
+            @PageableDefault(sort = { "name" }, size = 1, direction = Sort.Direction.DESC) Pageable pageable) {
         return pacienteRepository.findAllByAtivoTrue(pageable).map(ListPaciente::new);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DadosDetalhamentoPaciente> get(@PathVariable Long id){
+    public ResponseEntity<DadosDetalhamentoPaciente> get(@PathVariable Long id) {
         var paciente = pacienteRepository.getReferenceById(id);
         return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
     }
-	
-	@PutMapping("/update")
-	@Transactional
-	public ResponseEntity<DadosDetalhamentoPaciente> update(@RequestBody @Valid DadosUpdatePaciente paciente){
+
+    @PutMapping("/update")
+    @Transactional
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<DadosDetalhamentoPaciente> update(@RequestBody @Valid DadosUpdatePaciente paciente) {
         var entity = pacienteRepository.getReferenceById(paciente.id());
-		entity.updateInfos(paciente);
-        
+        entity.updateInfos(paciente);
+
         return ResponseEntity.ok(new DadosDetalhamentoPaciente(entity));
-	}
-	
-	@DeleteMapping("/{id}")
-	@Transactional
-	public ResponseEntity delete(@PathVariable Long id){
-		var entity = pacienteRepository.getReferenceById(id);
-		entity.excluir();
-		
-		return ResponseEntity.noContent().build();
-	}
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity delete(@PathVariable Long id) {
+        var entity = pacienteRepository.getReferenceById(id);
+        entity.excluir();
+
+        return ResponseEntity.noContent().build();
+    }
 }
