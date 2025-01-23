@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.domain.consulta.AgendaDeConsultas;
 import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
+import med.voll.api.domain.consulta.DadosDetalhamentoConsulta;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +23,9 @@ public class ConsultaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity postMethodName(@RequestBody @Valid DadosAgendamentoConsulta dados) {
-        System.out.println(dados);
-        // TODO: process POST request
-
-        // return entity;
-        return null;
+    public ResponseEntity agendar(@RequestBody @Valid DadosAgendamentoConsulta dados) {
+        agendaDeConsultas.Agendar(dados);
+        return ResponseEntity.ok(new DadosDetalhamentoConsulta(null, null, null, null));
     }
 
 }
