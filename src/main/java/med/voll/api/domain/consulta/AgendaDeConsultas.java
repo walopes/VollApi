@@ -34,6 +34,8 @@ public class AgendaDeConsultas {
     }
 
     private Medico obterMedico(DadosAgendamentoConsulta dados) {
+        if (dados.idMedico() != null)
+            return medicoRepo.getReferenceById(dados.idMedico());
         return new Medico();
     }
 }
