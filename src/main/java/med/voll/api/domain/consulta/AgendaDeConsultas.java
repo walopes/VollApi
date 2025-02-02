@@ -11,6 +11,7 @@ import med.voll.api.domain.paciente.PacienteRepository;
 @Service
 public class AgendaDeConsultas {
 
+    // TODO REmove Autowired for injection
     @Autowired
     private ConsultaRepository repository;
 
@@ -36,6 +37,11 @@ public class AgendaDeConsultas {
     private Medico obterMedico(DadosAgendamentoConsulta dados) {
         if (dados.idMedico() != null)
             return medicoRepo.getReferenceById(dados.idMedico());
-        return new Medico();
+
+        if (dados.especialidade() == null)
+            throw new ValidacaoException("Especialidade é obrigatória quando o médico não for escolhido!");
+
+        var medico = medicoRepo.findRandomMedico(dados.especialidade(), dados.date());
+        return medico;
     }
 }
