@@ -44,4 +44,22 @@ public class AgendaDeConsultas {
         var medico = medicoRepo.findRandomMedico(dados.especialidade(), dados.date());
         return medico;
     }
+
+    private void cancelarAgenda(DadosCancelamentoConsulta dados) {
+        if (dados == null)
+            throw new ValidacaoException("Dados nulos");
+
+        /*
+         * TODO Implement next validations:
+         * O sistema deve possuir uma funcionalidade que permita o cancelamento de
+         * consultas, na qual as seguintes informações deverão ser preenchidas:
+         * Consulta
+         * Motivo do cancelamento
+         * As seguintes regras de negócio devem ser validadas pelo sistema:
+         * É obrigatório informar o motivo do cancelamento da consulta, dentre as
+         * opções: paciente desistiu, médico cancelou ou outros;
+         * Uma consulta somente poderá ser cancelada com antecedência mínima de 24
+         * horas.
+         */
+    }
 }
