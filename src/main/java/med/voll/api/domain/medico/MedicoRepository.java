@@ -22,4 +22,14 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
                 limit 1;
             """)
     Medico findRandomMedico(Especialidade especialidade, LocalDateTime data);
+
+    @Query("""
+            select con.id
+                from Consulta con
+                where con.id = :idConsulta
+                and (TIMESTAMPDIFF(HOUR, :data, con.data) >= 24)
+                order by con.id
+                limit 1;
+                """)
+    Integer isAllowedToCancelAppointment(Long idConsulta, LocalDateTime data);
 }
