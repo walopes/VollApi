@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
+
     Page<Medico> findAllByAtivoTrue(Pageable p);
 
     @Query("""
@@ -24,12 +25,10 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
     Medico findRandomMedico(Especialidade especialidade, LocalDateTime data);
 
     @Query("""
-            select con.id
-                from Consulta con
-                where con.id = :idConsulta
-                and (TIMESTAMPDIFF(HOUR, :data, con.data) >= 24)
-                order by con.id
-                limit 1;
+            SELECT con.id IS NOT NULL
+                FROM Consulta con
+                WHERE con.id = :idConsulta
+                AND (TIMESTAMPDIFF(HOUR, :data, con.data) >= 24);
                 """)
-    Integer isAllowedToCancelAppointment(Long idConsulta, LocalDateTime data);
+    Boolean isAllowedToCancelAppointment(Long idConsulta, LocalDateTime data);
 }
