@@ -45,7 +45,7 @@ public class AgendaDeConsultas {
         return medico;
     }
 
-    private void cancelarAgenda(DadosCancelamentoConsulta dados) {
+    public void cancelarAgenda(DadosCancelamentoConsulta dados) {
         if (dados == null)
             throw new ValidacaoException("Dados nulos");
 
