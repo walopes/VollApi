@@ -4,7 +4,7 @@ import java.time.DayOfWeek;
 
 import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
 
-public class ValidacaoHorario {
+public class ValidacaoHorarioFuncionamento {
 
     public void validar(DadosAgendamentoConsulta dados) {
         var dataConsulta = dados.date();
@@ -12,5 +12,8 @@ public class ValidacaoHorario {
         var antesDaAbertura = dataConsulta.getHour() < 7; 
 	// TODO Each appointment have 1h - 19pm is the closing time
         var depoisEncerramento = dataConsulta.getHour() > 18;
+
+	if(domingo || antesDaAbertura || depoisEncerramento)
+	    throw new ValidacaoException("Consulta fora do horário de funcionamento da clínica");
     }
 }
