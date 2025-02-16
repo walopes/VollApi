@@ -33,4 +33,9 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
             AND (TIMESTAMPDIFF(HOUR, :data, con.data) >= :HOURS_TO_CANCEL)
             """)
     Boolean isAllowedToCancelAppointment(Long idConsulta, LocalDateTime data);
+
+    @Query(""" 
+    	select m.ativo from Medico m where m.id = :idMedico
+    	""")
+    Boolean findAtivoById(Long idMedico);
 }
