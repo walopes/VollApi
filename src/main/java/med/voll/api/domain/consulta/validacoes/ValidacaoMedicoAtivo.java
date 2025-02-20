@@ -6,5 +6,8 @@ public class ValidacaoMedicoAtivo{
     private MedicoRepository repository;
 
     public void validar(DadosAgendamentoConsulta dados){
+        if(dados.idMedico() == null)
+		return;
+
     }
 }
