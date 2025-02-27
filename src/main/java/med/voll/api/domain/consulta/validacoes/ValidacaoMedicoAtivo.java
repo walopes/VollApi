@@ -1,7 +1,9 @@
 package med.voll.api.domain.consulta.validacoes;
 
 public class ValidacaoMedicoAtivo{
-    
+  
+    // TODO Remove this AutoWire injection	
+    @AutoWire	
     private MedicoRepository repository;
 
     private final String ERROR_MESSAGE = "Consulta não pode ser agendada com médico excluído";
@@ -13,6 +15,5 @@ public class ValidacaoMedicoAtivo{
 	var isMedicoAtivo = repository.findAtivoById(dados.idMedico());
 	if(!isMedicoAtivo)
 	    throw new ValidacaoException(ERROR_MESSAGE);
-
     }
 }
