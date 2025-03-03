@@ -1,5 +1,7 @@
 package med.voll.api.domain.consulta.validacoes;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class ValidacaoMedicoAtivo{
   
     // TODO Remove this AutoWire injection	
