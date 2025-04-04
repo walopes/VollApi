@@ -30,7 +30,7 @@ public class AgendaDeConsultas {
 
         var medico = obterMedico(dados);
         var paciente = pacienteRepo.findById(dados.idPaciente()).get();
-        var consulta = new Consulta(null, medico, paciente, dados.date());
+        var consulta = new Consulta(null, medico, paciente, dados.data());
         repository.save(consulta);
     }
 
@@ -41,8 +41,8 @@ public class AgendaDeConsultas {
         if (dados.especialidade() == null)
             throw new ValidacaoException("Especialidade é obrigatória quando o médico não for escolhido!");
 
-        var medico = medicoRepo.findRandomMedico(dados.especialidade(), dados.date());
-        return medico;
+        var medico = medicoRepo.findRandomMedico(dados.especialidade(), dados.data());
+        return (Medico) medico;
     }
 
     public void cancelarAgenda(DadosCancelamentoConsulta dados) {
