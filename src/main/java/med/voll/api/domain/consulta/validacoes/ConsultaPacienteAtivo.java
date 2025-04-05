@@ -1,18 +1,21 @@
 package med.voll.api.domain.consulta.validacoes;
 
-public class ValidacaoMedicoAtivo{
-    
-    private MedicoRepository repository;
+public class ConsultaPacienteAtivo {
 
-    private final String ERROR_MESSAGE = "Consulta não pode ser agendada com médico excluído";
+    // TODO to implement
 
-    public void validar(DadosAgendamentoConsulta dados){
-        if(dados.idMedico() == null)
-		return;
+    // private MedicoRepository repository;
 
-	var isMedicoAtivo = repository.findAtivoById(dados.idMedico());
-	if(!isMedicoAtivo)
-	    throw new ValidacaoException(ERROR_MESSAGE);
+    // private final String ERROR_MESSAGE = "Consulta não pode ser agendada com
+    // médico excluído";
 
-    }
+    // public void validar(DadosAgendamentoConsulta dados) {
+    // if (dados.idMedico() == null)
+    // return;
+
+    // var isMedicoAtivo = repository.findAtivoById(dados.idMedico());
+    // if (!isMedicoAtivo)
+    // throw new ValidacaoException(ERROR_MESSAGE);
+
+    // }
 }
