@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import med.voll.api.domain.ValidacaoException;
 import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
 
-public class ValidacaoHorarioAntecedencia {
+public class ValidacaoHorarioAntecedencia implements ValidadorAgendamentoConsulta {
 
     private final int DURATION_TIME = 30;
     private final String ERROR_MESSAGE = "Consulta deve ser agendada com antecedência mínima de 30 minutos";
