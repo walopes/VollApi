@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import med.voll.api.domain.ValidacaoException;
 import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
 
+@Component
 public class ValidacaoHorarioAntecedencia implements ValidadorAgendamentoConsulta {
 
     private final int DURATION_TIME = 30;
