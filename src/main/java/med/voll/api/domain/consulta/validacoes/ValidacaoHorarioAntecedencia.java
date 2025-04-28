@@ -12,6 +12,9 @@ public class ValidacaoHorarioAntecedencia implements ValidadorAgendamentoConsult
     private final int DURATION_TIME = 30;
     private final String ERROR_MESSAGE = "Consulta deve ser agendada com antecedência mínima de 30 minutos";
 
+    @Autowired
+    private MedicoRepository repository;
+
     public void validar(DadosAgendamentoConsulta dados) {
         var dataConsulta = dados.data();
         var agora = LocalDateTime.now();
