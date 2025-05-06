@@ -6,6 +6,7 @@ import med.voll.api.domain.ValidacaoException;
 import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
 import med.voll.api.domain.medico.MedicoRepository;
 
+@Component
 public class ValidacaoMedicoAtivo implements ValidadorAgendamentoConsulta {
 
     // TODO Remove this AutoWire injection
