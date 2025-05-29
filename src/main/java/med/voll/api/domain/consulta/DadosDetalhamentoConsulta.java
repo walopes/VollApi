@@ -9,10 +9,8 @@ public record DadosDetalhamentoConsulta(
                 LocalDateTime data) {
 
         public DadosDetalhamentoConsulta(Consulta consulta) {
-                this.id = consulta.getId();
-                this.idMedico = consulta.getMedico().getId();
-                this.idPaciente = consulta.getPaciente().getId();
-                this.data = consulta.getData();
+                this(consulta.getId(), consulta.getMedico().getId(), consulta.getPaciente().getId(),
+                                consulta.getData());
         }
 
 }
