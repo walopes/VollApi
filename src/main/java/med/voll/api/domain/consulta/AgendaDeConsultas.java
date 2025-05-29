@@ -28,7 +28,6 @@ public class AgendaDeConsultas {
     private List<ValidadorAgendamentoConsulta> validadores;
 
     public void agendar(DadosAgendamentoConsulta dados) {
-        System.out.println("eu aqui");
         if (!pacienteRepo.existsById(dados.idPaciente()))
             throw new ValidacaoException("Id do paciente não existe!");
 
