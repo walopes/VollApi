@@ -24,8 +24,8 @@ public class AgendaDeConsultas {
     @Autowired
     private PacienteRepository pacienteRepo;
 
-    @Autowired
-    private List<ValidadorAgendamentoConsulta> validadores;
+    // @Autowired
+    // private List<ValidadorAgendamentoConsulta> validadores;
 
     public void agendar(DadosAgendamentoConsulta dados) {
         if (!pacienteRepo.existsById(dados.idPaciente()))
@@ -34,7 +34,7 @@ public class AgendaDeConsultas {
         if (dados.idMedico() != null && !medicoRepo.existsById(dados.idMedico()))
             throw new ValidacaoException("Médico informado não existe no sistema!");
 
-        validadores.forEach(v -> v.validar(dados));
+        // validadores.forEach(v -> v.validar(dados));
 
         var medico = obterMedico(dados);
         var paciente = pacienteRepo.findById(dados.idPaciente()).get();
