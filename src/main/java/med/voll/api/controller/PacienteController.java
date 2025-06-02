@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.domain.paciente.DadosDetalhamentoPaciente;
@@ -34,8 +35,10 @@ public class PacienteController {
         pacienteRepository = repository;
     }
 
+    // TODO Implement properly the methods
     @PostMapping
     @Secured("ROLE_ADMIN")
+    @SecurityRequirement(name = "bearer-key")
     public void cadastro(@RequestBody DadosPaciente paciente) {
         pacienteRepository.save(new Paciente(paciente));
     }
