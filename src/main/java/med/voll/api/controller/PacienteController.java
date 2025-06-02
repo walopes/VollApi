@@ -27,6 +27,7 @@ import med.voll.api.domain.paciente.PacienteRepository;
 
 @RestController
 @RequestMapping("paciente")
+@SecurityRequirement(name = "bearer-key")
 public class PacienteController {
 
     private final PacienteRepository pacienteRepository;
@@ -38,7 +39,6 @@ public class PacienteController {
     // TODO Implement properly the methods
     @PostMapping
     @Secured("ROLE_ADMIN")
-    @SecurityRequirement(name = "bearer-key")
     public void cadastro(@RequestBody DadosPaciente paciente) {
         pacienteRepository.save(new Paciente(paciente));
     }
