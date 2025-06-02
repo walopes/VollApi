@@ -8,10 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
+        public final Integer HOURS_TO_CANCEL = 24;
 
         Page<Medico> findAllByAtivoTrue(Pageable p);
-
-        public final Integer HOURS_TO_CANCEL = 24;
 
         @Query("""
                         select m from Medico m
