@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.domain.paciente.DadosDetalhamentoPaciente;
-import med.voll.api.domain.paciente.DadosPaciente;
+import med.voll.api.domain.medico.DadosDetalhamentoMedico;
+import med.voll.api.domain.paciente.DadosCadastroPaciente;
 import med.voll.api.domain.paciente.DadosUpdatePaciente;
 import med.voll.api.domain.paciente.ListPaciente;
 import med.voll.api.domain.paciente.Paciente;
@@ -36,11 +38,15 @@ public class PacienteController {
         pacienteRepository = repository;
     }
 
-    // TODO Implement properly the methods
     @PostMapping
-    @Secured("ROLE_ADMIN")
-    public void cadastro(@RequestBody DadosPaciente paciente) {
-        pacienteRepository.save(new Paciente(paciente));
+    @Transactional
+    // @Secured("ROLE_ADMIN")
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroPaciente dadosPaciente,
+            UriComponentsBuilder builder) {
+        var paciente = new Paciente(dadosPaciente);
+        pacienteRepository.save(paciente);
+        var uri = builder.path("/paciente/{id}").buildAndExpand(paciente.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoPaciente(paciente));
     }
 
     @GetMapping("list")
