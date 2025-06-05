@@ -26,7 +26,7 @@ public class ConsultaController {
     @Transactional
     public ResponseEntity agendar(@RequestBody @Valid DadosAgendamentoConsulta dados) {
         var dto = agendaDeConsultas.agendar(dados);
-        return ResponseEntity.ok(dto));
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping("cancelar")
