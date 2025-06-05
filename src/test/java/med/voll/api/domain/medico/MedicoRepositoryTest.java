@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 
 import org.junit.jupiter.api.DisplayName;
@@ -14,6 +15,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 
+import med.voll.api.controller.ConsultaController;
+import med.voll.api.domain.consulta.AgendaDeConsultas;
+import med.voll.api.domain.consulta.Consulta;
+import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
 import med.voll.api.domain.endereco.DadosEndereco;
 import med.voll.api.domain.paciente.DadosCadastroPaciente;
 import med.voll.api.domain.paciente.Paciente;
@@ -40,8 +45,9 @@ public class MedicoRepositoryTest {
 
         var medico = cadastroMedico("Medico", "medico@voll.med", "123456", Especialidade.CARDIOLOGIA);
         var paciente = cadastroPaciente("Paciente", "paciente@email.com");
-        // var consulta = cadastrarConsulta(medico, paciente, proximaSegundaAs10);
-        // cadastrarConsulta(medico, paciente, proximaSegundaAs10);
+        System.out.println("medico id is " + medico.getId());
+        System.out.println("paciente id is " + paciente.getId());
+        cadastrarConsulta(medico, paciente, proximaSegundaAs10);
 
         var medicoLivre = medicoRepository.findRandomMedico(Especialidade.CARDIOLOGIA, proximaSegundaAs10);
         assertThat(medicoLivre).isNull();
@@ -87,4 +93,7 @@ public class MedicoRepositoryTest {
                 null);
     }
 
+    private void cadastrarConsulta(Medico medico, Paciente paciente, LocalDateTime data) {
+        em.persist(new Consulta(null, medico, paciente, data));
+    }
 }
