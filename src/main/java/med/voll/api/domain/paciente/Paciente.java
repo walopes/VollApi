@@ -20,29 +20,30 @@ public class Paciente {
 
     private String nome;
     private String email;
-	private Boolean ativo;
+    private Boolean ativo;
 
     @Embedded
     private Endereco endereco;
 
-    public Paciente(DadosPaciente data){
+    public Paciente(DadosCadastroPaciente data) {
         this.nome = data.nome();
         this.email = data.email();
         this.endereco = new Endereco(data.endereco());
+        this.ativo = true;
     }
-	
+
     public void updateInfos(@Valid DadosUpdatePaciente paciente) {
-        if(paciente.nome() != null) {
+        if (paciente.nome() != null) {
             this.nome = paciente.nome();
         }
-        if(paciente.email() != null) {
+        if (paciente.email() != null) {
             this.email = paciente.email();
         }
-        if(paciente.endereco() != null) {
+        if (paciente.endereco() != null) {
             this.endereco.updateInfos(paciente.endereco());
         }
     }
-	
+
     public void excluir() {
         this.ativo = false;
     }
