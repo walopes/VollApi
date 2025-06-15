@@ -15,6 +15,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 
 import med.voll.api.domain.endereco.DadosEndereco;
+import med.voll.api.domain.paciente.DadosCadastroPaciente;
+import med.voll.api.domain.paciente.Paciente;
+import med.voll.api.domain.paciente.DadosCadastroPaciente;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -36,9 +39,7 @@ public class MedicoRepositoryTest {
                 .atTime(10, 0);
 
         var medico = cadastroMedico("Medico", "medico@voll.med", "123456", Especialidade.CARDIOLOGIA);
-        // TODO finalizar métodos paciente para prosseguir
-        // var paciente = cadastrarPaciente("Paciente", "paciente@email.com",
-        // "00000000000");
+        var paciente = cadastroPaciente("Paciente", "paciente@email.com");
         // var consulta = cadastrarConsulta(medico, paciente, proximaSegundaAs10);
         // cadastrarConsulta(medico, paciente, proximaSegundaAs10);
 
@@ -52,6 +53,12 @@ public class MedicoRepositoryTest {
         return medico;
     }
 
+    private Paciente cadastroPaciente(String nome, String email) {
+        var paciente = new Paciente(dadosPaciente(nome, email));
+        em.persist(paciente);
+        return paciente;
+    }
+
     private DadosCadastroMedico dadosMedico(String nome, String email, String crm, Especialidade especialidade) {
         return new DadosCadastroMedico(
                 nome,
@@ -62,12 +69,12 @@ public class MedicoRepositoryTest {
                 dadosEndereco());
     }
 
-    // private DadosCadastroPaciente dadosPaciente(String nome, String email, String
-    // cpf){
-    // return new DadosCadastroPaciente(
-
-    // );
-    // }
+    private DadosCadastroPaciente dadosPaciente(String nome, String email) {
+        return new DadosCadastroPaciente(
+                nome,
+                email,
+                dadosEndereco());
+    }
 
     private DadosEndereco dadosEndereco() {
         return new DadosEndereco(
