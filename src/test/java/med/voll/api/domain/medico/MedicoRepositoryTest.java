@@ -45,8 +45,6 @@ public class MedicoRepositoryTest {
 
         var medico = cadastroMedico("Medico", "medico@voll.med", "123456", Especialidade.CARDIOLOGIA);
         var paciente = cadastroPaciente("Paciente", "paciente@email.com");
-        System.out.println("medico id is " + medico.getId());
-        System.out.println("paciente id is " + paciente.getId());
         cadastrarConsulta(medico, paciente, proximaSegundaAs10);
 
         var medicoLivre = medicoRepository.findRandomMedico(Especialidade.CARDIOLOGIA, proximaSegundaAs10);
