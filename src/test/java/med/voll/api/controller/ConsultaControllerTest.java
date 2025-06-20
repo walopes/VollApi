@@ -2,6 +2,7 @@ package med.voll.api.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.security.test.context.support.WithMockUser;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,8 +19,9 @@ public class ConsultaControllerTest {
 
     @Test
     @DisplayName("Deveria devolver código HTTP 400 quando informações estão inválidas")
+    @WithMockUser
     void testAgendarCenario1() throws Exception {
-        var response = mvc.perform(post("/agendar"))
+        var response = mvc.perform(post("/consultas"))
                 .andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
