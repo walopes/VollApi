@@ -54,7 +54,7 @@ public class ConsultaControllerTest {
 
     @Test
     @DisplayName("Deveria devolver código HTTP 200 quando informações estão válidas")
-    void testAgendarCenario2() {
+    void testAgendarCenario2() throws Exception {
         var data = LocalDateTime.now().plusHours(1);
         var especialidade = Especialidade.CARDIOLOGIA;
         var dadosDetalhamento = new DadosDetalhamentoConsulta(null, 2l, 5l, data);
