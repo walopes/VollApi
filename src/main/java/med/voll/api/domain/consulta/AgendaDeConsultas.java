@@ -14,18 +14,21 @@ import med.voll.api.domain.consulta.validacoes.ValidadorAgendamentoConsulta;
 @Service
 public class AgendaDeConsultas {
 
-    // TODO REmove Autowired for injection
-    @Autowired
     private ConsultaRepository repository;
-
-    @Autowired
     private MedicoRepository medicoRepo;
-
-    @Autowired
     private PacienteRepository pacienteRepo;
-
-    @Autowired
     private List<ValidadorAgendamentoConsulta> validadores;
+
+    public AgendaDeConsultas(ConsultaRepository repository,
+            MedicoRepository medicoRepo,
+            PacienteRepository pacienteRepo,
+            List<ValidadorAgendamentoConsulta> validadores) {
+
+        this.repository = repository;
+        this.medicoRepo = medicoRepo;
+        this.pacienteRepo = pacienteRepo;
+        this.validadores = validadores;
+    }
 
     public DadosDetalhamentoConsulta agendar(DadosAgendamentoConsulta dados) {
         if (!pacienteRepo.existsById(dados.idPaciente()))
@@ -63,7 +66,7 @@ public class AgendaDeConsultas {
             throw new ValidacaoException("Dados nulos");
 
         /*
-         * TODO Implement next validations:
+         * TODO Implement next validations: (fazer)
          * O sistema deve possuir uma funcionalidade que permita o cancelamento de
          * consultas, na qual as seguintes informações deverão ser preenchidas:
          * Consulta
